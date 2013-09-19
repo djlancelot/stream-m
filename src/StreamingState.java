@@ -74,8 +74,7 @@ class StreamingState implements StreamInputState {
 				
 				// we have the timecode, so open a new cluster in our movie fragment
 				clusterTimeCode = EBMLElement.loadUnsigned(buffer, elem.getDataOffset(), (int)elem.getDataSize());
-				// DEBUG
-				System.out.println("tc: " + clusterTimeCode);
+				// DEBUG System.out.println("tc: " + clusterTimeCode);
 				
 				// cluster opened
 				fragment.openCluster(clusterTimeCode);
@@ -89,23 +88,20 @@ class StreamingState implements StreamInputState {
 					throw new RuntimeException("Track numbers > 127 are not implemented.");
 				trackNum ^= 0x80;
 				
-				//DEBUG 
-				System.out.print("tr: " + trackNum + " ");
+				//DEBUG System.out.print("tr: " + trackNum + " ");
 
 				// the offset of a video keyframe or -1
 				int videoKeyOffset = -1;
 				
 				// check if this is a video frame
 				if (trackNum == videoTrackNumber) {
-					//DEBUG 
-					System.out.print("video ");
+					//DEBUG System.out.print("video ");
 					
 					int flags = buffer[elem.getDataOffset() + 3] & 0xff;
 					if ((flags & 0x80) != 0) {
 						// keyframe
 						
-						//DEBUG 
-						System.out.print("key ");
+						//DEBUG	System.out.print("key ");
 						if (fragment.length() >= MINIMAL_FRAGMENT_LENGTH) {
 							
 							// closing current cluster (of the curent fragment)
@@ -137,8 +133,7 @@ class StreamingState implements StreamInputState {
 				//fragment.appendBlock(buffer, elem.getElementOffset(), elem.getElementSize());
 				fragment.appendKeyBlock(buffer, elem.getElementOffset(), elem.getElementSize(), videoKeyOffset);
 				
-				//DEBUG 
-				System.out.println();
+				//DEBUG System.out.println();
 				
 				// end: ID_SIMPLEBLOCK
 			
@@ -154,8 +149,7 @@ class StreamingState implements StreamInputState {
 			} else if (elem.getId() != ID_CLUSTER ) {
 				
 				// report unhandled element
-				//DEBUG
-				System.out.println("unhandled " + elem);
+				//DEBUG	System.out.println("unhandled " + elem);
 				
 			} 
 				
