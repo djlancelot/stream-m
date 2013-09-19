@@ -150,14 +150,15 @@ class StreamingState implements StreamInputState {
 				//throw new RuntimeException("BlockGroup is not yet supported.");
 				
 			
-			} else {
+			} else if (elem.getId() != ID_CLUSTER ) {
 				
 				// report unhandled element
 				//DEBUG
 				System.out.println("unhandled " + elem);
 				
-			}
-			
+			} 
+				
+		
 			if (elem.getId() == ID_CLUSTER || elem.getDataSize() >= 0x100000000L) {
 				offset = elem.getDataOffset();
 			} else {
