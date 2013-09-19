@@ -74,7 +74,8 @@ class StreamingState implements StreamInputState {
 				
 				// we have the timecode, so open a new cluster in our movie fragment
 				clusterTimeCode = EBMLElement.loadUnsigned(buffer, elem.getDataOffset(), (int)elem.getDataSize());
-				//System.out.println("tc: " + clusterTimeCode);
+				// DEBUG
+				System.out.println("tc: " + clusterTimeCode);
 				
 				// cluster opened
 				fragment.openCluster(clusterTimeCode);
@@ -89,7 +90,7 @@ class StreamingState implements StreamInputState {
 				trackNum ^= 0x80;
 				
 				//DEBUG 
-				System.out.print(trackNum + " ");
+				System.out.print("tr: "trackNum + " ");
 
 				// the offset of a video keyframe or -1
 				int videoKeyOffset = -1;
